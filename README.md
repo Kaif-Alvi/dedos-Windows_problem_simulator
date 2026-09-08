@@ -58,7 +58,7 @@ Built entirely in Go using [`webview_go`](https://github.com/webview/webview_go)
 ## Building from Source
 
 ```bash
-git clone https://github.com/<your-username>/dedos.git
+git clone https://github.com/Kaif-Alvi/dedos-Windows_problem_simulator.git
 cd dedos/dedos
 go mod tidy
 go build -ldflags "-H=windowsgui" -o dedos.exe .

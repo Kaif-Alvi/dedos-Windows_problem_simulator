@@ -39,7 +39,7 @@ Built entirely in Go using [`webview_go`](https://github.com/webview/webview_go)
 
 ## Features
 
-- 🖥️ **100+ simulations** — BSOD, ransomware, driver failures, disk errors, network issues, and more
+- 🖥️ **110 simulations** — BSOD, ransomware, driver failures, disk errors, network issues, and more
 - 🎨 **Custom title bar** — clean minimize / maximize / close controls, no native chrome
 - ⚡ **Instant load** — themed splash screen, no white-screen flash on startup
 - ⌨️ **Global hotkeys** — `Ctrl+Alt+Win+C` to exit any simulation instantly

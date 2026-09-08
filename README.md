@@ -109,4 +109,4 @@ Dedos is intended for **harmless pranks, demos, and educational purposes only**.
 
 ## License
 
-MIT © [Codone](https://github.com/<your-username>)
+MIT © [Kaif Alvi](https://github.com/Kaif-Alvi)

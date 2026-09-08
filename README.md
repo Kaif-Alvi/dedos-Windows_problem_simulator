@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/screenshots/logo.png" alt="Dedos Logo" width="120"/>
+<img src="dedos_logo.ico" alt="Dedos Logo" width="120"/>
 
 # Dedos
 

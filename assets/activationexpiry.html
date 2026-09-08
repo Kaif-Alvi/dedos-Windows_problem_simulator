@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Activation Expiry Warning</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #121619;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .dialog {
+      width: 450px;
+      background: #1e252b;
+      border: 1px solid #323d47;
+      border-radius: 8px;
+      padding: 28px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 42px;
+      color: #ffbc42;
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .desc {
+      font-size: 13.5px;
+      color: #a0aec0;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      padding: 10px 22px;
+      font-size: 13.5px;
+      background: #0078d7;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #1084e3;
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      color: rgba(255, 255, 255, 0.15);
+      font-size: 14px;
+      font-family: monospace;
+      pointer-events: none;
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    .warn {
+      position: fixed;
+      bottom: 18px;
+      font-size: 12px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="dialog">
+    <div class="icon">⚡</div>
+    <div class="title">Your Windows license will expire soon</div>
+    <div class="desc">You need to activate Windows in Settings before your current license period officially ends.</div>
+    <button class="btn" onclick="alert('Redirecting to Windows Activation Settings...')">Go to Settings</button>
+  </div>
+
+  <div class="watermark">
+    Activate Windows<br>
+    Go to Settings to activate Windows.
+  </div>
+
+  <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+
+  <script>
+    window.dedosPause = function () { };
+    window.dedosResume = function () { };
+  </script>
+</body>
+
+</html>

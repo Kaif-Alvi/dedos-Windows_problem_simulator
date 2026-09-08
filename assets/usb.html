@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>USB Device Error</title>
+    <style>
+        body {
+            margin: 0;
+            background: #261116;
+            color: #ffe8ec;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font: 17px 'Segoe UI'
+        }
+
+        .box {
+            text-align: center;
+            border: 1px solid #a44759;
+            background: #3a1820;
+            padding: 30px;
+            width: 450px
+        }
+
+        .icon {
+            font-size: 58px;
+            color: #ff7a91
+        }
+
+        .warn {
+            position: fixed;
+            bottom: 16px;
+            color: #b78690;
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="icon">↯</div>
+        <h2>USB device not recognized</h2>
+        <p>The last USB device you connected malfunctioned, and Windows does not recognize it.</p>
+    </div>
+    <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+    <script>window.dedosPause = () => { }; window.dedosResume = () => { };</script>
+</body>
+
+</html>

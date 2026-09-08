@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PREVENTION - Master Mitigation & Best Practices Protocol for 110 Simulations</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#0d0f14;
+    color:#eaeaea;
+    font-family:'Segoe UI', sans-serif;
+    padding:40px 60px;
+    height:100vh;
+    overflow-y:auto;
+  }
+  h1 {
+    font-size:28px;
+    background:linear-gradient(90deg,#5ad1ff,#8a7bff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:8px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #8892b0;
+    margin-bottom: 24px;
+  }
+  .section-title {
+    font-size: 18px;
+    color: #5ad1ff;
+    margin: 24px 0 12px 0;
+    border-bottom: 1px solid #2a3040;
+    padding-bottom: 6px;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .card {
+    background:#151923;
+    border:1px solid #2a3040;
+    border-radius:12px;
+    padding:18px 22px;
+    margin-bottom:14px;
+  }
+  .card h3 { font-size:15px; color:#8affa1; margin-bottom:8px; }
+  .card p { font-size:13.5px; color:#c3c9d6; line-height:1.7; margin-bottom: 8px; }
+  .details-list {
+    margin-top: 6px;
+    padding-left: 18px;
+    color: #8892b0;
+    font-size: 13px;
+  }
+  .details-list li {
+    padding: 2px 0;
+    line-height: 1.5;
+  }
+  .code-block {
+    background: #090b10;
+    border: 1px solid #1f2430;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: monospace;
+    font-size: 12px;
+    color: #a5b4fc;
+    margin-top: 8px;
+    overflow-x: auto;
+  }
+  .back-btn {
+    margin-top:24px;
+    padding:10px 20px;
+    background:#1a1e29;
+    border:1px solid #2a3040;
+    border-radius:8px;
+    color:#eaeaea;
+    cursor:pointer;
+    font-size:13px;
+  }
+  .back-btn:hover { border-color:#5ad1ff; }
+</style>
+</head>
+<body>
+  <h1>How to Prevent Future System Errors & Failures</h1>
+  <div class="subtitle">Comprehensive Mitigation Strategies and Best Practices Guarding All 110 System Simulations</div>
+
+  <div class="section-title">1. Hardware, Thermal & Power Subsystem Prevention</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Thermal Management & Dust Maintenance</h3>
+      <p>Keep the system cool by cleaning dust regularly and maintaining proper chassis airflow to prevent GPU/CPU thermal throttling and shutdowns[cite: 5].</p>
+      <ul class="details-list">
+        <li>Replace thermal paste every 2 years on high-performance components.</li>
+        <li>Inspect cooling fan tachometer lines and heat sink fins regularly.</li>
+        <li><div class="code-block">Mitigation: Regular physical cleaning and fan curve tuning</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Power Supply & Surge Protection</h3>
+      <p>Protect hardware from power supply instability, voltage rail spikes, and USB over-current trips using clean power accessories[cite: 5].</p>
+      <ul class="details-list">
+        <li>Use high-quality surge protectors and uninterruptible power supplies (UPS).</li>
+        <li>Ensure PSU wattages exceed peak system component draws safely.</li>
+        <li><div class="code-block">Mitigation: Hardware surge protection & certified PSU units</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Stable Memory & JEDEC Baseline Profiles</h3>
+      <p>Avoid unstable XMP/DOCP overclocking configurations that cause memory training failures and BSODs[cite: 5].</p>
+      <ul class="details-list">
+        <li>Test RAM stability thoroughly using extended memory diagnostics.</li>
+        <li>Stick to verified motherboard QVL memory frequency limits.</li>
+        <li><div class="code-block">Mitigation: Standardized memory timing configuration</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Battery Health & ACPI Calibration</h3>
+      <p>Maintain laptop battery lifespan and power management state configurations to avoid sudden emergency shutdowns[cite: 5].</p>
+      <ul class="details-list">
+        <li>Monitor battery capacity degradation reports periodically.</li>
+        <li>Avoid sustained 100% state-of-charge grid plugging without cycling.</li>
+        <li><div class="code-block">Mitigation: powercfg /batteryreport and ACPI driver checks</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">2. Kernel, Driver & OS Subsystem Prevention</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Certified WHQL Driver Management</h3>
+      <p>Regularly updating hardware drivers helps avoid most known bugs and kernel-level panics[cite: 5].</p>
+      <ul class="details-list">
+        <li>Only install digitally signed WHQL drivers from official vendors.</li>
+        <li>Avoid unverified third-party driver update utilities.</li>
+        <li><div class="code-block">Mitigation: Device Manager driver updates & clean DDU installs</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>System Component Integrity Maintenance</h3>
+      <p>Protect core operating system files from corruption caused by incomplete updates or application conflicts[cite: 5].</p>
+      <ul class="details-list">
+        <li>Run periodic system file verification scans.</li>
+        <li>Keep Windows Update patched with latest security fixes.</li>
+        <li><div class="code-block">Mitigation: sfc /scannow and DISM image health checks</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Audio and Print Service Isolation</h3>
+      <p>Configure multimedia and print services securely to prevent driver isolation crashes and service hangs[cite: 5].</p>
+      <ul class="details-list">
+        <li>Use Type 4 universal print drivers instead of legacy kernel mode drivers.</li>
+        <li>Restart audio endpoint builders when sound pipelines freeze.</li>
+        <li><div class="code-block">Mitigation: Isolated print driver processing mode</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Group Policy & Task Scheduler Hygiene</h3>
+      <p>Maintain clean background task definitions and validate local group policy configurations[cite: 5].</p>
+      <ul class="details-list">
+        <li>Review scheduled task triggers for malformed XML entries.</li>
+        <li>Audit startup applications using Task Manager startup tabs.</li>
+        <li><div class="code-block">Mitigation: gpupdate /force and task sched auditing</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">3. Storage, File System & Registry Prevention</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Periodic Storage S.M.A.R.T Monitoring</h3>
+      <p>Monitor storage health using S.M.A.R.T. tools and run periodic check disk scans to catch bad sectors early[cite: 5].</p>
+      <ul class="details-list">
+        <li>Check SSD wear-leveling indicators and HDD reallocation counts.</li>
+        <li>Run scheduled file system integrity scans.</li>
+        <li><div class="code-block">Mitigation: CrystalDiskInfo and chkdsk utilities</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Disk Space & Virtual Memory Management</h3>
+      <p>Keep sufficient free space on Drive C: to prevent paging file exhaustion and virtual memory crashes[cite: 5].</p>
+      <ul class="details-list">
+        <li>Clean temporary system cache files and run Disk Cleanup regularly.</li>
+        <li>Maintain dynamic system-managed paging file boundaries.</li>
+        <li><div class="code-block">Mitigation: cleanmgr.exe and pagefile allocation limits</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Registry Hive Backups & Snapshots</h3>
+      <p>Protect vital configuration files against sudden corruption or unexpected power interruptions[cite: 5].</p>
+      <ul class="details-list">
+        <li>Create System Restore Points before major software installations[cite: 5].</li>
+        <li>Maintain automated system backups on secure external drives.</li>
+        <li><div class="code-block">Mitigation: rstrui.exe system snapshot creation</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Reliable Software Sourcing</h3>
+      <p>Avoid installing unknown or cracked software, which often introduces malware and makes the system unstable[cite: 5].</p>
+      <ul class="details-list">
+        <li>Download packages exclusively from verified developer channels.</li>
+        <li>Verify digital file signatures prior to execution.</li>
+        <li><div class="code-block">Mitigation: Secure app sourcing and signature verification</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">4. Network, Gateway & Security Threat Prevention</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Secure DNS & Network Configurations</h3>
+      <p>Protect local socket layers, resolver caches, and gateway routing configurations from poisoning attacks[cite: 5].</p>
+      <ul class="details-list">
+        <li>Use trusted public DNS resolvers with encrypted DNS protocols.</li>
+        <li>Configure secure Wi-Fi WPA3 network authentication keys.</li>
+        <li><div class="code-block">Mitigation: ipconfig /flushdns and network adapter resets</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Firewall & Broadcast Loop Protection</h3>
+      <p>Guard network interface adapters against broadcast storms, proxy connection refusals, and unmanaged bridging[cite: 5].</p>
+      <ul class="details-list">
+        <li>Configure strict Windows Defender Firewall inbound/outbound rules.</li>
+        <li>Avoid unmanaged physical ethernet switch loops.</li>
+        <li><div class="code-block">Mitigation: netsh winsock reset and firewall profile checks</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Trusted Antivirus & Malware Quarantining</h3>
+      <p>Regular scans with trusted antivirus or anti-malware software protect the system from harmful software[cite: 5].</p>
+      <ul class="details-list">
+        <li>Keep real-time protection signatures updated automatically.</li>
+        <li>Perform deep full-system scans on a weekly schedule.</li>
+        <li><div class="code-block">Mitigation: Windows Defender real-time virus scans</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Peripheral and Webcam Privacy Controls</h3>
+      <p>Monitor active hardware permission hooks to prevent unauthorized background peripheral interception[cite: 5].</p>
+      <ul class="details-list">
+        <li>Audit application permissions for webcam and microphone access.</li>
+        <li>Disable unused peripheral controllers in BIOS/UEFI settings.</li>
+        <li><div class="code-block">Mitigation: Windows Privacy Settings hardware audits</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <button class="back-btn" onclick="goLoadPage('home')">← Back to Home</button>
+</body>
+</html>

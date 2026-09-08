@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Display Driver Recovery</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0b0b0b;
+            color: #eee;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font: 18px 'Segoe UI'
+        }
+
+        .box {
+            text-align: center
+        }
+
+        .screen {
+            width: 430px;
+            height: 230px;
+            border: 5px solid #555;
+            background: #183c62;
+            display: grid;
+            place-items: center
+        }
+
+        .screen span {
+            font-size: 52px
+        }
+
+        .warn {
+            position: fixed;
+            bottom: 16px;
+            color: #666;
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="screen"><span id="icon">!</span></div>
+        <h2 id="title">Display driver stopped responding</h2>
+        <p>Windows is attempting to recover the graphics driver.</p>
+    </div>
+    <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+    <script>let r = true;
+        function t() {
+            if (r) {
+                title.innerText = title.innerText.endsWith('...') ? 'Display driver stopped responding' : 'Display driver stopped responding...'
+            } setTimeout(t, 700)
+        } t(); window.dedosPause = () => r = false;
+        window.dedosResume = () => r = true;
+    </script>
+</body>
+
+</html>

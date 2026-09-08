@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>System File Checker</title>
+    <style>
+        body {
+            margin: 0;
+            background: #050505;
+            color: #b8ffb8;
+            height: 100vh;
+            padding: 42px;
+            font: 15px Consolas, monospace;
+            box-sizing: border-box
+        }
+
+        .line {
+            margin: 10px 0
+        }
+
+        .red {
+            color: #ff7777
+        }
+
+        .warn {
+            position: fixed;
+            bottom: 16px;
+            left: 42px;
+            color: #557255;
+            font: 12px 'Segoe UI'
+        }
+    </style>
+</head>
+
+<body>
+    <div>Microsoft Windows [Version 11.0.26100]</div>
+    <div>C:\Windows\system32&gt; sfc /scannow</div>
+    <div class="line">Beginning system scan. This process will take some time.</div>
+    <div class="line" id="progress">Verification 0% complete</div>
+    <div class="line red" id="result">Windows Resource Protection is verifying files...</div>
+    <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+    <script>let p = 0, r = true; function tick() { if (r) { p = p >= 100 ? 0 : p + 1; progress.innerText = 'Verification ' + p + '% complete'; if (p > 80) result.innerText = 'Windows Resource Protection found corrupt files.' } setTimeout(tick, 80) } tick(); window.dedosPause = () => r = false; window.dedosResume = () => r = true;</script>
+</body>
+
+</html>

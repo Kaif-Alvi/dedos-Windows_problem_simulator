@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Windows Explorer</title>
+    <style>
+        body {
+            margin: 0;
+            background: #252b33;
+            color: #eee;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font: 16px 'Segoe UI'
+        }
+
+        .box {
+            width: 470px;
+            border: 1px solid #59636e;
+            background: #303943;
+            padding: 26px
+        }
+
+        .icon {
+            font-size: 48px;
+            color: #f0bd45;
+            float: left;
+            margin-right: 18px
+        }
+
+        .warn {
+            position: fixed;
+            bottom: 16px;
+            color: #84919d;
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="icon">▰</div>
+        <h2>Windows Explorer</h2>
+        <p id="msg">Working on it...</p>
+        <p>Explorer has encountered a problem and needs to restart.</p>
+    </div>
+    <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+    <script>window.dedosPause = () => { }; window.dedosResume = () => { };</script>
+</body>
+
+</html>

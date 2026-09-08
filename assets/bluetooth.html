@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bluetooth Problem</title>
+    <style>
+        body {
+            margin: 0;
+            background: #102536;
+            color: #e7f5ff;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font: 17px 'Segoe UI'
+        }
+
+        .box {
+            text-align: center
+        }
+
+        .icon {
+            font-size: 74px;
+            color: #48b6ed
+        }
+
+        .spin {
+            margin: 20px auto;
+            border: 3px solid #31536b;
+            border-top-color: #48b6ed;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            animation: r 1s linear infinite
+        }
+
+        @keyframes r {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .warn {
+            position: fixed;
+            bottom: 16px;
+            font-size: 12px;
+            color: #7293a8
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="icon">ᛒ</div>
+        <h2>Bluetooth is turned off</h2>
+        <p>Turn on Bluetooth to connect your device.</p>
+        <div class="spin"></div>
+        <div>Searching for devices...</div>
+    </div>
+    <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+    <script>window.dedosPause = () => { }; window.dedosResume = () => { };</script>
+</body>
+
+</html>

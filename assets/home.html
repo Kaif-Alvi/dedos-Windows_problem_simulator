@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dedos</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: radial-gradient(circle at top, #1b1f2a 0%, #0d0f14 100%);
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-family:'Segoe UI', sans-serif;
+    color:#eaeaea;
+    overflow:hidden;
+  }
+
+  .logo {
+    font-size:38px;
+    font-weight:700;
+    letter-spacing:2px;
+    margin-bottom:4px;
+    background:linear-gradient(90deg,#5ad1ff,#8a7bff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .subtitle {
+    color:#8892a6;
+    font-size:13px;
+    margin-bottom:40px;
+  }
+
+  .main-btns {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+  }
+
+  .start-btn {
+    width:260px;
+    padding:22px 0;
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:3px;
+    color:#0d0f14;
+    background:linear-gradient(90deg,#5ad1ff,#8a7bff);
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    box-shadow:0 8px 24px rgba(90,209,255,0.25);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .start-btn:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(90,209,255,0.35); }
+
+  .small-row {
+    display:flex;
+    gap:12px;
+    margin-top:6px;
+  }
+  .small-btn {
+    padding:12px 22px;
+    font-size:13px;
+    color:#cfd6e6;
+    background:#1a1e29;
+    border:1px solid #2a3040;
+    border-radius:10px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .small-btn:hover { background:#232838; border-color:#5ad1ff; color:#fff; }
+
+  .hint {
+    position:fixed;
+    bottom:16px;
+    font-size:11px;
+    color:#4a5062;
+  }
+</style>
+</head>
+<body>
+
+  <div id="homeView">
+    <div class="logo">DEDOS</div>
+    <div class="subtitle">Windows Problem Simulator - Educational</div>
+
+    <div class="main-btns" id="mainButtons">
+      <button class="start-btn" onclick="goLoadPage('simulations')">START</button>
+      <div class="small-row">
+        <button class="small-btn" onclick="goLoadPage('why')">WHY</button>
+        <button class="small-btn" onclick="goLoadPage('what-to-do')">WHAT TO DO</button>
+        <button class="small-btn" onclick="goLoadPage('prevention')">PREVENTION</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">Exit: Ctrl+Alt+Win+C &nbsp;•&nbsp; Pause: Ctrl+Alt+Win+P &nbsp;•&nbsp; Resume: Ctrl+Alt+Win+R</div>
+
+</body>
+</html>

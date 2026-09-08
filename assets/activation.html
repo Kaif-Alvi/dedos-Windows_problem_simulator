@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Windows Activation</title>
+    <style>
+        body {
+            margin: 0;
+            background: #17251c;
+            color: #eaffef;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font: 17px 'Segoe UI'
+        }
+
+        .box {
+            width: 470px;
+            border: 1px solid #4e9b68;
+            padding: 30px;
+            text-align: center
+        }
+
+        .key {
+            font-size: 52px;
+            color: #77e39a
+        }
+
+        .warn {
+            position: fixed;
+            bottom: 16px;
+            color: #7da389;
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="key">◇</div>
+        <h2>Windows activation required</h2>
+        <p>We cannot activate Windows on this device because no valid digital license was found.</p>
+        <p>Open Settings to activate Windows.</p>
+    </div>
+    <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+    <script>window.dedosPause = () => { }; window.dedosResume = () => { };</script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search Indexing</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0e2020;
+            color: #d8ffff;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font: 17px 'Segoe UI'
+        }
+
+        .box {
+            width: 520px
+        }
+
+        .bar {
+            height: 14px;
+            background: #1d4c4d
+        }
+
+        .fill {
+            height: 100%;
+            background: #39d0c5;
+            width: 0%;
+            transition: width .3s
+        }
+
+        .small {
+            color: #8cbcbc;
+            font-size: 13px
+        }
+
+        .warn {
+            position: fixed;
+            bottom: 16px;
+            color: #648b8b;
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h2>Indexing files for faster search</h2>
+        <p id="pct">0% complete</p>
+        <div class="bar">
+            <div class="fill" id="fill"></div>
+        </div>
+        <p class="small">Scanning your files...</p>
+    </div>
+    <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+    <script>let p = 0, r = true; function t() { if (r) { p = p >= 100 ? 0 : p + 1; fill.style.width = p + '%'; pct.innerText = p + '% complete' } setTimeout(t, 100) } t(); window.dedosPause = () => r = false; window.dedosResume = () => r = true;</script>
+</body>
+
+</html>

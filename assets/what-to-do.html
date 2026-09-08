@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WHAT TO DO - Master Troubleshooting Protocol for 110 Simulations</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#0d0f14;
+    color:#eaeaea;
+    font-family:'Segoe UI', sans-serif;
+    padding:40px 60px;
+    height:100vh;
+    overflow-y:auto;
+  }
+  h1 {
+    font-size:28px;
+    background:linear-gradient(90deg,#5ad1ff,#8a7bff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:8px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #8892b0;
+    margin-bottom: 24px;
+  }
+  .section-title {
+    font-size: 18px;
+    color: #5ad1ff;
+    margin: 24px 0 12px 0;
+    border-bottom: 1px solid #2a3040;
+    padding-bottom: 6px;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .card {
+    background:#151923;
+    border:1px solid #2a3040;
+    border-radius:12px;
+    padding:18px 22px;
+    margin-bottom:14px;
+  }
+  .card h3 { font-size:15px; color:#5ad1ff; margin-bottom:8px; }
+  .card p { font-size:13.5px; color:#c3c9d6; line-height:1.7; margin-bottom: 8px; }
+  .details-list {
+    margin-top: 6px;
+    padding-left: 18px;
+    color: #8892b0;
+    font-size: 13px;
+  }
+  .details-list li {
+    padding: 2px 0;
+    line-height: 1.5;
+  }
+  .code-block {
+    background: #090b10;
+    border: 1px solid #1f2430;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: monospace;
+    font-size: 12px;
+    color: #a5b4fc;
+    margin-top: 8px;
+    overflow-x: auto;
+  }
+  .back-btn {
+    margin-top:24px;
+    padding:10px 20px;
+    background:#1a1e29;
+    border:1px solid #2a3040;
+    border-radius:8px;
+    color:#eaeaea;
+    cursor:pointer;
+    font-size:13px;
+  }
+  .back-btn:hover { border-color:#5ad1ff; }
+</style>
+</head>
+<body>
+  <h1>What to Do When a System Problem Occurs</h1>
+  <div class="subtitle">Exhaustive Master Remediation & Troubleshooting Protocol Covering All 110 System Simulation Vectors</div>
+
+  <div class="section-title">1. Hardware, Thermal & Power Fault Simulations</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>GPU Overheating & Thermal Throttling</h3>
+      <p>Triggered when GPU core temperatures exceed safe limits (past 105°C), forcing emergency thermal throttling or shutdowns[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Clean dust accumulation from heatsinks and radiator fins.</li>
+        <li>Replace degraded thermal paste and verify fan tachometer lines.</li>
+        <li><div class="code-block">Diagnostic: Monitor via MSI Afterburner or HWMonitor</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>PSU Fan Failure & Power Surge</h3>
+      <p>Hardware power supply failure or voltage rail instability causing immediate system dropouts and reboots[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Test PSU rail voltages with a multitester or software tool.</li>
+        <li>Inspect USB ports for short-circuits causing over-current trips.</li>
+        <li><div class="code-block">Diagnostic: Event Viewer Event ID 41 (Kernel-Power)</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>RAM Timing & XMP Mismatch</h3>
+      <p>Memory instability due to aggressive XMP/DOCP overclocking profiles failing memory training loops[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Revert RAM frequency to standard JEDEC baseline speeds in BIOS.</li>
+        <li>Run the Windows Memory Diagnostic utility to isolate faulty sticks.</li>
+        <li><div class="code-block">Diagnostic: mdsched.exe</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Battery Critical & Power State Fault</h3>
+      <p>Laptop battery failure or critical low-charge states triggering emergency hibernation protocols[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Generate a battery health report to check design vs full charge capacity.</li>
+        <li>Calibrate power management ACPI drivers in Device Manager.</li>
+        <li><div class="code-block">Diagnostic: powercfg /batteryreport</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">2. Kernel, Driver & OS Subsystem Simulations</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Display Driver Crash (TDR Failure)</h3>
+      <p>Graphics driver timeout and recovery failure resulting in black screens or driver reset loops[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Perform a clean driver uninstallation using Display Driver Uninstaller (DDU).</li>
+        <li>Install certified WHQL stable display drivers.</li>
+        <li><div class="code-block">Diagnostic: Check for nvlddmkm.sys or amdkmdap errors</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Kernel Panic & Security Check Failure</h3>
+      <p>Critical ring-0 execution exception triggering system-wide Blue Screens of Death (BSOD)[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Record exact bugcheck stop codes (e.g., KERNEL_SECURITY_CHECK_FAILURE).</li>
+        <li>Analyze minidump files using WinDbg to identify offending modules.</li>
+        <li><div class="code-block">Diagnostic: WinDbg !analyze -v command</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Audio Codec & Service Hang</h3>
+      <p>Windows Audio service unresponsiveness or corrupt audio endpoint drivers breaking sound output[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Restart the Windows Audio Service via services.msc.</li>
+        <li>Roll back or reinstall High Definition Audio device drivers.</li>
+        <li><div class="code-block">Diagnostic: Get-Service Audiosrv</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Print Driver Conflict & Spooler Lock</h3>
+      <p>Print isolation host crashes locking up print queues and network print jobs[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Stop the Print Spooler service and clear the printer spool directory.</li>
+        <li>Update print processor drivers to Type 4 universal drivers.</li>
+        <li><div class="code-block">Diagnostic: net stop spooler && del /q /f /s "%systemroot%\System32\Spool\Printers\*.*"</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">3. Storage, File System & Registry Simulations</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>HDD/SSD Bad Sectors</h3>
+      <p>Physical storage media degradation leading to unreadable file clusters and I/O read/write errors[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Execute surface scans to remap bad sector clusters.</li>
+        <li>Check S.M.A.R.T. health parameters using CrystalDiskInfo.</li>
+        <li><div class="code-block">Diagnostic: chkdsk C: /f /r /x</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Low Disk Space & Virtual Memory Exhaustion</h3>
+      <p>Drive C: full capacity causing paging file fragmentation and virtual memory allocation failures[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Clean temporary system files and run Disk Cleanup wizard.</li>
+        <li>Reallocate or expand pagefile.sys virtual memory limits.</li>
+        <li><div class="code-block">Diagnostic: cleanmgr.exe</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Registry Hive Corruption</h3>
+      <p>Damaged SYSTEM, SOFTWARE, or SECURITY registry hives preventing normal OS boot sequences[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Boot into Windows Recovery Environment (WinRE).</li>
+        <li>Restore registry backups from the RegBack directory.</li>
+        <li><div class="code-block">Diagnostic: sfc /scannow && DISM /Online /Cleanup-Image /RestoreHealth</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Task Scheduler & Group Policy Conflicts</h3>
+      <p>Malformed scheduled jobs or conflicting Active Directory policy objects breaking automated task execution[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Review Task Scheduler library for broken triggers and tasks.</li>
+        <li>Force a local group policy refresh via command line.</li>
+        <li><div class="code-block">Diagnostic: gpupdate /force</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">4. Network, Gateway & Security Threat Simulations</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>DNS Poisoning & Gateway Timeout</h3>
+      <p>Corrupted local DNS cache entries and unreachable default gateway routes causing internet timeouts[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Flush local resolver cache and renew IP address leases.</li>
+        <li>Switch to reliable public DNS resolvers (e.g., 8.8.8.8 or 1.1.1.1).</li>
+        <li><div class="code-block">Diagnostic: ipconfig /flushdns && ipconfig /renew</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Network Broadcast Loop & Proxy Error</h3>
+      <p>Switch loops saturating network frame buffers or proxy server connection refusals[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Disconnect rogue bridging loops or unmanaged network switches.</li>
+        <li>Verify browser proxy settings and local LAN configurations.</li>
+        <li><div class="code-block">Diagnostic: netsh winsock reset</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Wi-Fi Authentication Failure</h3>
+      <p>WPA3/WPA2 security handshake failures preventing wireless adapter connection[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Forget the wireless network profile and re-enter network security keys.</li>
+        <li>Update wireless network interface card drivers.</li>
+        <li><div class="code-block">Diagnostic: netsh wlan delete profile name="SSID"</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Antivirus Threat & Unauthorized Webcam Hook</h3>
+      <p>Malicious malware injections, rootkits, or unauthorized background hooks accessing system webcams[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Run deep full-system antivirus scans using Windows Defender.</li>
+        <li>Inspect active privacy permissions for camera and microphone access.</li>
+        <li><div class="code-block">Diagnostic: Get-PnpDevice -Class Camera</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <button class="back-btn" onclick="goLoadPage('home')">← Back to Home</button>
+</body>
+</html>

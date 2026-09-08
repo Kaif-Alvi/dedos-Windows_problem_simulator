@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Simulations</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: radial-gradient(circle at top, #1b1f2a 0%, #0d0f14 100%);
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-family:'Segoe UI', sans-serif;
+    color:#eaeaea;
+    overflow:hidden;
+  }
+
+  .step { display:none; flex-direction:column; align-items:center; width:100%; }
+  .step.active { display:flex; }
+
+  h1 {
+    font-size:22px;
+    margin-bottom:8px;
+    background:linear-gradient(90deg,#5ad1ff,#8a7bff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .subtitle { color:#8892a6; font-size:12.5px; margin-bottom:30px; }
+
+  /* ==== STEP 1: CATEGORY CARDS ==== */
+  .cat-grid {
+    display:flex;
+    gap:18px;
+  }
+  .cat-card {
+    width:170px;
+    padding:28px 16px;
+    background:#151923;
+    border:1px solid #2a3040;
+    border-radius:14px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cat-card:hover { border-color:#5ad1ff; transform:translateY(-4px); background:#1a1f2c; }
+  .cat-icon { font-size:34px; margin-bottom:10px; }
+  .cat-name { font-size:14px; font-weight:600; margin-bottom:4px; }
+  .cat-desc { font-size:11px; color:#8892a6; }
+
+  /* ==== STEP 2: ITEM LIST ==== */
+  .item-list {
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    width:420px;
+    max-height:340px;
+    overflow-y:auto;
+  }
+  .item-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 18px;
+    background:#151923;
+    border:1px solid #2a3040;
+    border-radius:10px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .item-row:hover { border-color:#5ad1ff; background:#1a1f2c; }
+  .item-title { font-size:13.5px; font-weight:600; }
+  .item-arrow { color:#5ad1ff; font-size:14px; }
+
+  /* ==== STEP 3: DETAIL PAGE ==== */
+  .detail-box {
+    width:440px;
+    background:#151923;
+    border:1px solid #2a3040;
+    border-radius:16px;
+    padding:30px;
+    text-align:center;
+  }
+  .detail-icon { font-size:44px; margin-bottom:14px; }
+  .detail-title { font-size:19px; font-weight:700; margin-bottom:10px; }
+  .detail-desc { font-size:13px; color:#c3c9d6; line-height:1.7; margin-bottom:24px; }
+  .go-btn {
+    width:100%;
+    padding:16px 0;
+    font-size:17px;
+    font-weight:700;
+    letter-spacing:2px;
+    color:#0d0f14;
+    background:linear-gradient(90deg,#5ad1ff,#8a7bff);
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+  }
+  .go-btn:hover { opacity:.92; }
+
+  /* ==== COMMON BACK LINK ==== */
+  .back-link {
+    margin-top:22px;
+    color:#6b7386;
+    font-size:12px;
+    cursor:pointer;
+    text-decoration:underline;
+  }
+  .hint {
+    position:fixed;
+    bottom:16px;
+    font-size:11px;
+    color:#4a5062;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ STEP 1: CATEGORY SELECT ============ -->
+  <div class="step active" id="step1">
+    <h1>Select a category</h1>
+    <div class="subtitle">What type of problem would you like to see?</div>
+    <div class="cat-grid" id="catGrid"></div>
+    <div class="back-link" onclick="goLoadPage('home')">← Return to home</div>
+  </div>
+
+  <!-- ============ STEP 2: ITEM LIST ============ -->
+  <div class="step" id="step2">
+    <h1 id="step2Title">Select a simulation</h1>
+    <div class="subtitle">Click a problem to start the simulation</div>
+    <div class="item-list" id="itemList"></div>
+    <div class="back-link" onclick="showStep(1)">← Return to categories</div>
+  </div>
+
+  <!-- ============ STEP 3: DETAIL + START ============ -->
+  <div class="step" id="step3">
+    <div class="detail-box">
+      <div class="detail-icon" id="detailIcon">🟦</div>
+      <div class="detail-title" id="detailTitle">BSOD</div>
+      <div class="detail-desc" id="detailDesc">...</div>
+      <button class="go-btn" id="startBtn">START</button>
+    </div>
+    <div class="back-link" id="backToListLink">← Return to list</div>
+  </div>
+
+  <div class="hint">Exit: Ctrl+Alt+Win+C &nbsp;•&nbsp; Pause: Ctrl+Alt+Win+P &nbsp;•&nbsp; Resume: Ctrl+Alt+Win+R</div>
+
+<script>
+  // ================= SIMULATION DATA =================
+  // Each category contains simulation items with its own trigger function
+  const CATEGORIES = [
+    {
+      id: 'screen',
+      icon: '🖥️',
+      name: 'Screen Problems',
+      desc: 'Screen-related problems',
+      items: [
+        { id:'bsod', icon:'🟦', title:'BSOD', desc:'A Windows 11-style Blue Screen of Death with the CRITICAL_PROCESS_DIED stop code and loading percentage animation.', trigger:'goTriggerBSOD' },
+        { id:'blackscreen', icon:'⬛', title:'BLACK SCREEN', desc:'The screen turns black with only a blinking cursor visible, simulating a frozen system.', trigger:'goTriggerBlackScreen' },
+        { id:'fakeupdate', icon:'🔄', title:'FAKE UPDATE LOOP', desc:'A "Working on updates" screen where the percentage increases but never finishes.', trigger:'goTriggerFakeUpdate' },
+        { id:'ransomware', icon:'🔒', title:'RANSOMWARE SCREEN', desc:'A fake file-lock warning screen for visual effect only; it does not touch real files.', trigger:'goTriggerRansomware' },
+        { id:'updatestuck', icon:'⏳', title:'UPDATE STUCK AT 99%', desc:'A visual simulation of Windows Update stuck at 99%.', trigger:'goTriggerProblem' },
+        { id:'activationexpiry', icon:'🔑', title:'ACTIVATION EXPIRY WARNING', desc:'A warning that the Windows activation license has expired.', trigger:'goTriggerProblem' },
+        { id:'defenderalert', icon:'🛡️', title:'DEFENDER THREAT ALERT', desc:'A safe visual alert simulating a Windows Defender threat detection.', trigger:'goTriggerProblem' },
+        { id:'bootloop', icon:'🔁', title:'BOOT LOOP', desc:'A visual simulation of Automatic Repair starting repeatedly.', trigger:'goTriggerProblem' },
+        { id:'loginloop', icon:'👤', title:'SIGN-IN LOOP', desc:'A simulation of Windows sign-in waiting repeatedly without completing.', trigger:'goTriggerProblem' },
+        { id:'webcam', icon:'📷', title:'CAMERA ERROR', desc:'A warning that the webcam cannot be found.', trigger:'goTriggerProblem' },
+        { id:'displaydriver', icon:'🖼️', title:'DISPLAY DRIVER', desc:'A warning that the display driver is not responding.', trigger:'goTriggerProblem' },
+        { id:'criticalprocess', icon:'🛑', title:'CRITICAL PROCESS DIED', desc:'A simulation of an important Windows process stopping.', trigger:'goTriggerProblem' },
+        { id:'outofmemory', icon:'🧠', title:'OUT OF MEMORY', desc:'A warning that Windows does not have enough memory available.', trigger:'goTriggerProblem' },
+        { id:'explorercrash', icon:'📁', title:'EXPLORER CRASH', desc:'A simulation of Windows Explorer stopping and restarting.', trigger:'goTriggerProblem' },
+        { id:'nointernet', icon:'🌐', title:'NO INTERNET', desc:'A simulation of having no internet access despite being connected to the network.', trigger:'goTriggerProblem' },
+        { id:'autorepair', icon:'🔧', title:'AUTOMATIC REPAIR', desc:'A simulation of Windows Automatic Repair starting.', trigger:'goTriggerProblem' },
+      ]
+    },
+    {
+      id: 'hardware',
+      icon: '⚙️',
+      name: 'Hardware Problems',
+      desc: 'Hardware-related problems',
+      items: [
+        { id:'cpuoverload', icon:'🟧', title:'CPU OVERLOAD', desc:'A live graph showing all CPU cores at 100% usage with rising temperature.', trigger:'goTriggerCpuOverload' },
+        { id:'corruptbios', icon:'🟥', title:'CORRUPT BIOS', desc:'CMOS Checksum Error and BIOS ROM Checksum Failed logs shown with a typing effect.', trigger:'goTriggerCorruptBios' },
+        { id:'diskboot', icon:'💾', title:'DISK BOOT FAILURE', desc:'A classic BIOS/POST-style black screen showing "No bootable device found."', trigger:'goTriggerDiskBootFailure' },
+        { id:'lowdisk', icon:'📉', title:'LOW DISK SPACE', desc:'A low disk space warning dialog with a red space bar.', trigger:'goTriggerLowDiskSpace' },
+        { id:'ssdwarning', icon:'💽', title:'SSD HEALTH WARNING', desc:'A warning that SSD health is declining.', trigger:'goTriggerProblem' },
+        { id:'gpuvector', icon:'🎮', title:'DISPLAY DRIVER CRASH', desc:'A simulation of a graphics driver crash and screen recovery.', trigger:'goTriggerProblem' },
+        { id:'memoryerror', icon:'🧠', title:'MEMORY ERROR', desc:'A visual simulation of Windows Memory Diagnostic running.', trigger:'goTriggerProblem' },
+        { id:'overheating', icon:'🌡️', title:'OVERHEATING', desc:'A warning that CPU temperature is rising.', trigger:'goTriggerProblem' },
+        { id:'storage', icon:'🗄️', title:'STORAGE WARNING', desc:'A warning that storage is nearly full.', trigger:'goTriggerProblem' },
+        { id:'battery', icon:'🔋', title:'LOW BATTERY', desc:'A critically low battery warning.', trigger:'goTriggerProblem' },
+        { id:'watermark', icon:'💧', title:'WINDOWS WATERMARK', desc:'A simulation showing a Windows activation watermark.', trigger:'goTriggerProblem' },
+        { id:'registryerror', icon:'🗃️', title:'REGISTRY ERROR', desc:'A warning that the Windows Registry is damaged.', trigger:'goTriggerProblem' },
+        { id:'usbmalfunction', icon:'🔌', title:'USB MALFUNCTION', desc:'A simulation of a malfunctioning USB device.', trigger:'goTriggerProblem' },
+        { id:'dnsfailure', icon:'🌐', title:'DNS FAILURE', desc:'A network simulation where the DNS server does not respond.', trigger:'goTriggerProblem' },
+        { id:'ipconflict', icon:'⚠️', title:'IP CONFLICT', desc:'A warning that multiple devices are using the same IP address.', trigger:'goTriggerProblem' },
+        { id:'bluetoothfail', icon:'📶', title:'BLUETOOTH FAILURE', desc:'A simulation of a Bluetooth adapter not working.', trigger:'goTriggerProblem' },
+        { id:'cammissing', icon:'📷', title:'CAMERA MISSING', desc:'A simulation where the webcam cannot be found.', trigger:'goTriggerProblem' },
+        { id:'micmuted', icon:'🎙️', title:'MICROPHONE BLOCKED', desc:'A warning that microphone access is blocked.', trigger:'goTriggerProblem' },
+        { id:'batterylow', icon:'🔋', title:'CRITICAL BATTERY', desc:'A simulation of the battery level becoming very low.', trigger:'goTriggerProblem' },
+        { id:'gpudrivercrash', icon:'🎮', title:'GPU DRIVER CRASH', desc:'A simulation of a graphics driver crash.', trigger:'goTriggerProblem' },
+        { id:'directxerror', icon:'🎮', title:'DIRECTX ERROR', desc:'A warning about a DirectX feature-level error.', trigger:'goTriggerProblem' },
+        { id:'dllmissing', icon:'🧩', title:'DLL MISSING', desc:'A simulation where a required DLL file cannot be found.', trigger:'goTriggerProblem' },
+      ]
+    },
+    {
+      id: 'software',
+      icon: '🧩',
+      name: 'Software Problems',
+      desc: 'Software-related problems',
+      items: [
+        { id:'driverfail', icon:'⚠️', title:'DRIVER FAILURE', desc:'A blue screen with the DRIVER_IRQL_NOT_LESS_OR_EQUAL stop code, simulating a driver crash.', trigger:'goTriggerDriverFailure' },
+        { id:'network', icon:'📡', title:'NETWORK DISCONNECTED', desc:'A "No Internet Connection" simulation with a cross on the network icon.', trigger:'goTriggerNetworkDisconnected' },
+        { id:'printeroffline', icon:'🖨️', title:'PRINTER OFFLINE', desc:'A Windows warning that the printer is offline.', trigger:'goTriggerProblem' },
+        { id:'audioservice', icon:'🔊', title:'AUDIO SERVICE ERROR', desc:'A warning that Windows Audio service is not running.', trigger:'goTriggerProblem' },
+        { id:'apphang', icon:'⏸️', title:'APP NOT RESPONDING', desc:'A Windows dialog showing that an application is not responding.', trigger:'goTriggerProblem' },
+        { id:'appcrash', icon:'💥', title:'APP CRASH', desc:'A Windows dialog showing that a program has stopped working.', trigger:'goTriggerProblem' },
+        { id:'systemfiles', icon:'⌨️', title:'CORRUPT SYSTEM FILES', desc:'A simulation of System File Checker searching for damaged files.', trigger:'goTriggerProblem' },
+        { id:'searchindex', icon:'🔎', title:'SEARCH INDEXING', desc:'Progress while the Windows Search index is being built.', trigger:'goTriggerProblem' },
+        { id:'permissions', icon:'🚫', title:'ACCESS DENIED', desc:'A warning that access to a folder is not permitted.', trigger:'goTriggerProblem' },
+        { id:'date', icon:'🕒', title:'TIME SYNC', desc:'A problem synchronizing the Windows clock with a time server.', trigger:'goTriggerProblem' },
+        { id:'restore', icon:'↩️', title:'SYSTEM RESTORE', desc:'Visual progress for System Restore.', trigger:'goTriggerProblem' },
+        { id:'activation', icon:'🔑', title:'ACTIVATION', desc:'A Windows activation required message.', trigger:'goTriggerProblem' },
+        { id:'bluetooth', icon:'ᛒ', title:'BLUETOOTH OFF', desc:'A simulation of Bluetooth being off and searching for devices.', trigger:'goTriggerProblem' },
+        { id:'printer', icon:'🖨️', title:'PRINTER OFFLINE', desc:'A printer offline problem.', trigger:'goTriggerProblem' },
+        { id:'sound', icon:'🔊', title:'NO AUDIO DEVICE', desc:'A warning that no audio output device was found.', trigger:'goTriggerProblem' },
+        { id:'usb', icon:'🔌', title:'USB ERROR', desc:'A warning that a USB device is not recognized.', trigger:'goTriggerProblem' },
+        { id:'explorer', icon:'📁', title:'EXPLORER CRASH', desc:'A problem where Windows Explorer restarts.', trigger:'goTriggerProblem' },
+        { id:'malwaredetected', icon:'🛡️', title:'MALWARE DETECTED', desc:'A safe visual alert simulating Windows Defender detecting malware.', trigger:'goTriggerProblem' },
+        { id:'firewallblock', icon:'🔥', title:'FIREWALL BLOCK', desc:'A simulation of Windows Firewall blocking an application connection.', trigger:'goTriggerProblem' },
+        { id:'syncfailed', icon:'🔄', title:'SYNC FAILED', desc:'A warning that file synchronization failed.', trigger:'goTriggerProblem' },
+        { id:'pinblocked', icon:'🔒', title:'PIN BLOCKED', desc:'A simulation of access being blocked after too many incorrect PIN attempts.', trigger:'goTriggerProblem' },
+        { id:'passwordexpired', icon:'🔑', title:'PASSWORD EXPIRED', desc:'A warning that the Windows password has expired.', trigger:'goTriggerProblem' },
+        { id:'servicefailed', icon:'⚙️', title:'SERVICE FAILED', desc:'A simulation of a Windows service failing to start.', trigger:'goTriggerProblem' },
+        { id:'taskschedulererror', icon:'📅', title:'TASK SCHEDULER ERROR', desc:'A warning that a scheduled task did not run.', trigger:'goTriggerProblem' },
+        { id:'environmentvariable', icon:'🌱', title:'ENVIRONMENT VARIABLE ERROR', desc:'A simulation where an environment variable cannot be found.', trigger:'goTriggerProblem' },
+        { id:'grouppolicy', icon:'📋', title:'GROUP POLICY BLOCK', desc:'A warning that a Group Policy operation was blocked.', trigger:'goTriggerProblem' },
+        { id:'kernelpanic', icon:'💀', title:'KERNEL PANIC', desc:'A visual simulation of a critical kernel error.', trigger:'goTriggerProblem' },
+      ]
+    },
+    {
+      id: 'extended',
+      icon: '🧪',
+      name: 'Extended Problems',
+      desc: 'Advanced system and hardware simulations',
+      items: [
+        { id:'ramparity', icon:'🧠', title:'RAM PARITY ERROR', desc:'A simulation of a memory parity error.', trigger:'goTriggerProblem' },
+        { id:'smartfailure', icon:'💽', title:'S.M.A.R.T. FAILURE', desc:'A storage drive failure warning.', trigger:'goTriggerProblem' },
+        { id:'powersurge', icon:'⚡', title:'POWER SURGE', desc:'A simulation of a detected power surge.', trigger:'goTriggerProblem' },
+        { id:'biosflashfail', icon:'🟥', title:'BIOS FLASH FAILURE', desc:'A simulation of a failed BIOS update.', trigger:'goTriggerProblem' },
+        { id:'opticalerror', icon:'💿', title:'OPTICAL DRIVE ERROR', desc:'A warning that the optical drive cannot read a disc.', trigger:'goTriggerProblem' },
+        { id:'spoolerdeadlock', icon:'🖨️', title:'PRINT SPOOLER DEADLOCK', desc:'A simulation of the print spooler becoming stuck.', trigger:'goTriggerProblem' },
+        { id:'gatewayunreachable', icon:'🌐', title:'GATEWAY UNREACHABLE', desc:'A warning that the network gateway cannot be reached.', trigger:'goTriggerProblem' },
+        { id:'vpndropped', icon:'🔐', title:'VPN CONNECTION DROPPED', desc:'A simulation of a disconnected VPN connection.', trigger:'goTriggerProblem' },
+        { id:'cloudsyncconflict', icon:'☁️', title:'CLOUD SYNC CONFLICT', desc:'A cloud file synchronization conflict warning.', trigger:'goTriggerProblem' },
+        { id:'zerodaywarning', icon:'🛡️', title:'ZERO-DAY WARNING', desc:'A warning about an unknown security vulnerability.', trigger:'goTriggerProblem' },
+        { id:'cputhrottle', icon:'🌡️', title:'CPU THROTTLING', desc:'A simulation of reduced CPU performance due to high temperature.', trigger:'goTriggerProblem' },
+        { id:'pagefilecorrupt', icon:'📄', title:'PAGEFILE CORRUPTION', desc:'A warning that the Windows pagefile is damaged.', trigger:'goTriggerProblem' },
+        { id:'masterbootrecord', icon:'💾', title:'MASTER BOOT RECORD', desc:'A simulation of a damaged Master Boot Record.', trigger:'goTriggerProblem' },
+        { id:'securebootviolation', icon:'🔒', title:'SECURE BOOT VIOLATION', desc:'A warning that Secure Boot validation failed.', trigger:'goTriggerProblem' },
+        { id:'tplockout', icon:'🔑', title:'TPM LOCKOUT', desc:'A simulation of a TPM security chip lockout.', trigger:'goTriggerProblem' },
+        { id:'bitlockerlock', icon:'🔐', title:'BITLOCKER LOCK', desc:'A warning that a BitLocker recovery key is required.', trigger:'goTriggerProblem' },
+        { id:'ghosttouch', icon:'👆', title:'GHOST TOUCH', desc:'A simulation of a touchscreen providing input by itself.', trigger:'goTriggerProblem' },
+        { id:'ambientlightsensor', icon:'💡', title:'AMBIENT LIGHT SENSOR', desc:'A warning that the ambient light sensor is not working.', trigger:'goTriggerProblem' },
+        { id:'fingerprinthardware', icon:'☝️', title:'FINGERPRINT HARDWARE', desc:'A simulation where the fingerprint reader cannot be found.', trigger:'goTriggerProblem' },
+        { id:'nvmecontroller', icon:'💽', title:'NVME CONTROLLER ERROR', desc:'A warning that the NVMe controller is not responding.', trigger:'goTriggerProblem' },
+        { id:'gpuoverheat', icon:'🔥', title:'GPU OVERHEAT', desc:'A simulation of an overheated graphics processor.', trigger:'goTriggerProblem' },
+        { id:'ramtimingmismatch', icon:'🧠', title:'RAM TIMING MISMATCH', desc:'A warning about a RAM timing configuration mismatch.', trigger:'goTriggerProblem' },
+        { id:'psufanfailure', icon:'🌀', title:'PSU FAN FAILURE', desc:'A simulation of a power supply fan failure.', trigger:'goTriggerProblem' },
+        { id:'hddbadsectors', icon:'💿', title:'HDD BAD SECTORS', desc:'A warning that bad sectors were found on the hard drive.', trigger:'goTriggerProblem' },
+        { id:'networkloop', icon:'🔁', title:'NETWORK LOOP', desc:'A simulation of a network packet loop.', trigger:'goTriggerProblem' },
+        { id:'dnspoisoning', icon:'🌐', title:'DNS POISONING', desc:'A safe visual simulation of incorrect DNS responses.', trigger:'goTriggerProblem' },
+        { id:'audiocodeccrash', icon:'🔊', title:'AUDIO CODEC CRASH', desc:'A warning that the audio codec is not working.', trigger:'goTriggerProblem' },
+        { id:'webcamhook', icon:'📷', title:'WEBCAM HOOK ERROR', desc:'A simulation of another application using the webcam.', trigger:'goTriggerProblem' },
+        { id:'registryhivecorrupt', icon:'🗃️', title:'REGISTRY HIVE CORRUPT', desc:'A warning that a Registry hive is damaged.', trigger:'goTriggerProblem' },
+        { id:'grouppolicyconflict', icon:'📋', title:'GROUP POLICY CONFLICT', desc:'A simulation of conflicting Group Policy settings.', trigger:'goTriggerProblem' },
+        { id:'servicehang', icon:'⚙️', title:'SERVICE HANG', desc:'A warning that a Windows service is not responding.', trigger:'goTriggerProblem' },
+        { id:'certificateerror', icon:'📜', title:'CERTIFICATE ERROR', desc:'A warning about an invalid security certificate.', trigger:'goTriggerProblem' },
+        { id:'proxyerror', icon:'🌐', title:'PROXY ERROR', desc:'A simulation of a failed proxy server connection.', trigger:'goTriggerProblem' },
+        { id:'indexingservicedead', icon:'🔎', title:'INDEXING SERVICE STOPPED', desc:'A warning that the search indexing service has stopped.', trigger:'goTriggerProblem' },
+        { id:'printdriverconflict', icon:'🖨️', title:'PRINT DRIVER CONFLICT', desc:'A simulation of a printer driver conflict.', trigger:'goTriggerProblem' },
+        { id:'bluetoothstackfault', icon:'📶', title:'BLUETOOTH STACK FAULT', desc:'A warning about a Bluetooth stack crash.', trigger:'goTriggerProblem' },
+        { id:'usbhubpowerfault', icon:'🔌', title:'USB HUB POWER FAULT', desc:'A simulation where a USB hub does not receive enough power.', trigger:'goTriggerProblem' },
+        { id:'kernelsecuritycheck', icon:'🛡️', title:'KERNEL SECURITY CHECK', desc:'A warning that the kernel security check failed.', trigger:'goTriggerProblem' },
+        { id:'biosupdatefailure', icon:'🟥', title:'BIOS UPDATE FAILURE', desc:'A simulation of an incomplete BIOS update.', trigger:'goTriggerProblem' },
+        { id:'batterycritical', icon:'🔋', title:'CRITICAL BATTERY', desc:'A warning that the battery charge is extremely low.', trigger:'goTriggerProblem' },
+        { id:'displaydrivercrash', icon:'🖥️', title:'DISPLAY DRIVER CRASH', desc:'A simulation of a display driver crash.', trigger:'goTriggerProblem' },
+        { id:'wifiauthfailed', icon:'📡', title:'WI-FI AUTHENTICATION FAILED', desc:'A warning that Wi-Fi authentication failed.', trigger:'goTriggerProblem' },
+        { id:'gatewaytimeout', icon:'🌐', title:'GATEWAY TIMEOUT', desc:'A simulation of a delayed network gateway response.', trigger:'goTriggerProblem' },
+        { id:'antivirusthreat', icon:'🛡️', title:'ANTIVIRUS THREAT', desc:'A safe visual alert simulating an antivirus threat detection.', trigger:'goTriggerProblem' },
+        { id:'dbconnectionlost', icon:'🗄️', title:'DATABASE CONNECTION LOST', desc:'A simulation of a disconnected database connection.', trigger:'goTriggerProblem' },
+      ]
+    }
+  ];
+
+  let currentCategory = null;
+  let currentItem = null;
+
+  // ================= STEP NAVIGATION =================
+  function showStep(n) {
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+  }
+
+  // ================= STEP 1: RENDER CATEGORY CARDS =================
+  function renderCategories() {
+    const grid = document.getElementById('catGrid');
+    grid.innerHTML = '';
+    CATEGORIES.forEach(cat => {
+      const div = document.createElement('div');
+      div.className = 'cat-card';
+      div.innerHTML = '<div class="cat-icon">' + cat.icon + '</div>' +
+        '<div class="cat-name">' + cat.name + '</div>' +
+        '<div class="cat-desc">' + cat.desc + '</div>';
+      div.onclick = () => openCategory(cat.id);
+      grid.appendChild(div);
+    });
+  }
+
+  function openCategory(catId) {
+    currentCategory = CATEGORIES.find(c => c.id === catId);
+    document.getElementById('step2Title').innerText = currentCategory.name;
+    const list = document.getElementById('itemList');
+    list.innerHTML = '';
+    currentCategory.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'item-row';
+      row.setAttribute('role', 'button');
+      row.setAttribute('tabindex', '0');
+      row.innerHTML = '<div class="item-title">' + item.icon + ' &nbsp;' + item.title + '</div>' +
+        '<div class="item-arrow">→</div>';
+      row.onclick = () => launchSimulation(item);
+      row.onkeydown = event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          launchSimulation(item);
+        }
+      };
+      list.appendChild(row);
+    });
+    showStep(2);
+  }
+
+  // ================= STEP 3: DETAIL PAGE =================
+  function openDetail(item) {
+    currentItem = item;
+    document.getElementById('detailIcon').innerText = item.icon;
+    document.getElementById('detailTitle').innerText = item.title;
+    document.getElementById('detailDesc').innerText = item.desc;
+    document.getElementById('backToListLink').onclick = () => showStep(2);
+    showStep(3);
+  }
+
+  function launchSimulation(item) {
+    currentItem = item;
+    const trigger = window[item.trigger];
+    if (typeof trigger !== 'function') {
+      document.getElementById('step2Title').innerText = 'Simulation unavailable';
+      document.querySelector('#step2 .subtitle').innerText = 'The Go trigger is not connected: ' + item.id;
+      showStep(2);
+      return;
+    }
+    if (item.trigger === 'goTriggerProblem') {
+      trigger(item.id);
+    } else {
+      trigger();
+    }
+  }
+
+  // Clicking START calls the corresponding Go trigger function
+  document.getElementById('startBtn').addEventListener('click', () => {
+    if (currentItem) launchSimulation(currentItem);
+  });
+
+  renderCategories();
+</script>
+</body>
+</html>

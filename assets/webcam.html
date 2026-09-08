@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Camera Unavailable</title>
+    <style>
+        body {
+            margin: 0;
+            background: #111;
+            color: #eee;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font: 16px 'Segoe UI'
+        }
+
+        .box {
+            text-align: center
+        }
+
+        .camera {
+            width: 300px;
+            height: 190px;
+            background: #252525;
+            border: 3px solid #666;
+            display: grid;
+            place-items: center;
+            font-size: 58px
+        }
+
+        .error {
+            color: #ff7777;
+            margin-top: 20px
+        }
+
+        .warn {
+            position: fixed;
+            bottom: 16px;
+            font-size: 12px;
+            color: #777
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="camera">◉</div>
+        <div class="error">Camera not found</div>
+        <p>Check that your camera is connected and available.</p>
+    </div>
+    <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+    <script>window.dedosPause = () => { }; window.dedosResume = () => { };</script>
+</body>
+
+</html>

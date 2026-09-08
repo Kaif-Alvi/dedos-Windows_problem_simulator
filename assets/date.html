@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Time Sync</title>
+    <style>
+        body {
+            margin: 0;
+            background: #172238;
+            color: #edf4ff;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font: 17px 'Segoe UI'
+        }
+
+        .box {
+            text-align: center
+        }
+
+        .clock {
+            font-size: 64px;
+            font-variant-numeric: tabular-nums;
+            color: #7dd3fc
+        }
+
+        .warn {
+            position: fixed;
+            bottom: 16px;
+            color: #8296b4;
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="clock" id="clock">--:--</div>
+        <h2>Your clock is out of sync</h2>
+        <p>Windows could not synchronize with the time server.</p>
+    </div>
+    <div class="warn">Simulation only. Press Ctrl + Alt + Win + C to exit.</div>
+    <script>let r = true; function t() { if (r) clock.innerText = new Date().toLocaleTimeString(); setTimeout(t, 1000) } t(); window.dedosPause = () => r = false; window.dedosResume = () => r = true;</script>
+</body>
+
+</html>

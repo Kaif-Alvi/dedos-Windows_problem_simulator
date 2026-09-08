@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WHY - Deep-Dive Failure Analysis Master Protocol for 110 Simulations</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#0d0f14;
+    color:#eaeaea;
+    font-family:'Segoe UI', sans-serif;
+    padding:40px 60px;
+    height:100vh;
+    overflow-y:auto;
+  }
+  h1 {
+    font-size:28px;
+    background:linear-gradient(90deg,#5ad1ff,#8a7bff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:8px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #8892b0;
+    margin-bottom: 24px;
+  }
+  .section-title {
+    font-size: 18px;
+    color: #5ad1ff;
+    margin: 24px 0 12px 0;
+    border-bottom: 1px solid #2a3040;
+    padding-bottom: 6px;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .card {
+    background:#151923;
+    border:1px solid #2a3040;
+    border-radius:12px;
+    padding:18px 22px;
+    margin-bottom:14px;
+  }
+  .card h3 { font-size:15px; color:#5ad1ff; margin-bottom:8px; }
+  .card p { font-size:13.5px; color:#c3c9d6; line-height:1.7; margin-bottom: 8px; }
+  .details-list {
+    margin-top: 6px;
+    padding-left: 18px;
+    color: #8892b0;
+    font-size: 13px;
+  }
+  .details-list li {
+    padding: 2px 0;
+    line-height: 1.5;
+  }
+  .code-block {
+    background: #090b10;
+    border: 1px solid #1f2430;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: monospace;
+    font-size: 12px;
+    color: #a5b4fc;
+    margin-top: 8px;
+    overflow-x: auto;
+  }
+  .back-btn {
+    margin-top:24px;
+    padding:10px 20px;
+    background:#1a1e29;
+    border:1px solid #2a3040;
+    border-radius:8px;
+    color:#eaeaea;
+    cursor:pointer;
+    font-size:13px;
+  }
+  .back-btn:hover { border-color:#5ad1ff; }
+</style>
+</head>
+<body>
+  <h1>Why Do Windows System Crashes and Failures Occur?</h1>
+  <div class="subtitle">Comprehensive Root-Cause Breakdown and Architectural Failure Analysis for All 110 Simulations</div>
+
+  <div class="section-title">1. Hardware, Thermal & Power Subsystem Root Causes</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>GPU Thermal Runaway & Overheating</h3>
+      <p>Occurs when thermal paste degrades, cooling fans fail, or dust blocks heatsinks, causing silicon temperatures to breach safe operational thresholds (past 105°C)[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Triggers hardware protection mechanisms to force sudden shutdowns[cite: 2, 4].</li>
+        <li>Causes graphical artifacting, screen freezes, and TDR driver resets.</li>
+        <li><div class="code-block">Root Cause: Silicon thermal breakdown and tachometer stall</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>PSU Rail Drops & Power Surges</h3>
+      <p>Power Supply Unit degradation or external electrical spikes result in inconsistent voltage delivery across 12V/5V rails[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Instantaneous dropouts lead to unexpected Kernel-Power Event 41 errors[cite: 3].</li>
+        <li>USB over-current events trip motherboard protection fuses.</li>
+        <li><div class="code-block">Root Cause: Inadequate current regulation under peak load</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>RAM Timing & XMP Training Failure</h3>
+      <p>Aggressive memory overclocking profiles (XMP/DOCP) push RAM voltage and frequency beyond stable hardware limits[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Memory read/write corruption during kernel data execution.</li>
+        <li>Results in instant blue screens with memory management stop codes.</li>
+        <li><div class="code-block">Root Cause: Parity mismatch in high-frequency memory bus</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Battery Critical & ACPI Power Fault</h3>
+      <p>Advanced Configuration and Power Interface (ACPI) driver failure or depleted cell capacity prevents proper state transitions[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Inability to calculate accurate remaining discharge metrics.</li>
+        <li>Unplanned sleep state failures and sudden data loss.</li>
+        <li><div class="code-block">Root Cause: Firmware power state protocol desynchronization</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">2. Kernel, Driver & OS Subsystem Root Causes</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Display Driver Crash (TDR Timeout)</h3>
+      <p>Graphics drivers fail to respond to GPU scheduling requests within the Timeout Detection and Recovery (TDR) period[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>DirectX pipeline lockups caused by buggy shader implementations.</li>
+        <li>Results in black screens and driver restarts (e.g., nvlddmkm.sys)[cite: 3].</li>
+        <li><div class="code-block">Root Cause: Ring-0 graphics kernel deadlock</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Kernel Panic & Security Exceptions</h3>
+      <p>Uncaught exceptions or illegal memory references executed within privileged ring-0 kernel spaces[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Corrupted stack pointers or invalid driver callback routines.</li>
+        <li>Triggers emergency bugcheck stops to protect overall system integrity.</li>
+        <li><div class="code-block">Root Cause: Unauthorized memory access in kernel mode</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Audio Codec & Service Hang</h3>
+      <p>Windows Audio Endpoint Builder or multimedia class scheduler service (MMCSS) unresponsiveness[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Deadlocked audio buffer queues running in user/kernel shared memory.</li>
+        <li>Results in distorted audio output or complete sound driver failure.</li>
+        <li><div class="code-block">Root Cause: Thread starvation in audio subsystem threads</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Print Driver Isolation Conflicts</h3>
+      <p>Print processor incompatibility between user-mode isolation hosts and legacy kernel printer drivers[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Spooler service crashes during complex PostScript or PCL rendering.</li>
+        <li>Locks up print queues across client networks.</li>
+        <li><div class="code-block">Root Cause: Memory leak in print spooler process memory space</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">3. Storage, File System & Registry Root Causes</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>HDD/SSD Sector Degradation</h3>
+      <p>Magnetic platter wear or NAND flash memory cell block exhaustion leading to uncorrectable read errors (UECC)[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>File allocation table corruption preventing sector mapping.</li>
+        <li>Input/Output operation timeouts during system file access.</li>
+        <li><div class="code-block">Root Cause: Physical media wear-leveling failure</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Low Disk Space & Virtual Memory Exhaustion</h3>
+      <p>Drive C: capacity saturation preventing the operating system from expanding the paging file (`pagefile.sys`)[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Memory management unable to swap idle pages out to disk.</li>
+        <li>Applications crash unpredictably with "Out of Memory" errors.</li>
+        <li><div class="code-block">Root Cause: Paging file allocation boundary violation</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Registry Hive Corruption</h3>
+      <p>Sudden power outages or malware infections damaging vital configuration databases (SYSTEM, SOFTWARE, SECURITY)[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Missing or truncated registry keys break component initialization.</li>
+        <li>Windows fails to load user profiles or boot past the login screen.</li>
+        <li><div class="code-block">Root Cause: Incomplete write transaction on configuration hive</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Task Scheduler & Group Policy Conflicts</h3>
+      <p>Malformed XML schemas in scheduled jobs or conflicting local group policy object (GPO) parameters[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Infinite loops in automated background script execution.</li>
+        <li>Privilege escalation blocks and service start timeouts.</li>
+        <li><div class="code-block">Root Cause: Syntax error or circular reference in policy rules</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">4. Network, Gateway & Security Threat Root Causes</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>DNS Poisoning & Gateway Timeouts</h3>
+      <p>Malicious cache manipulation or default gateway unresponsiveness corrupting IP route resolution[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Clients directed to fraudulent or non-existent destination IPs.</li>
+        <li>Socket connection timeouts during secure web browsing handshakes.</li>
+        <li><div class="code-block">Root Cause: Resolver cache manipulation or ARP spoofing</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Network Broadcast Loops & Proxy Refusals</h3>
+      <p>Unmanaged Ethernet loops flooding switch frame buffers or misconfigured proxy authentication parameters[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Network packet storms consuming 100% adapter bandwidth.</li>
+        <li>HTTP 407/502 proxy gateway connection refusals.</li>
+        <li><div class="code-block">Root Cause: Layer 2 broadcast saturation or proxy block</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Wi-Fi WPA3/WPA2 Authentication Mismatch</h3>
+      <p>Cipher suite negotiations failing between wireless access points and client network interface cards[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Pre-shared key (PSK) handshake rejections and dropping connections.</li>
+        <li>Outdated Wi-Fi adapter firmware failing security protocols.</li>
+        <li><div class="code-block">Root Cause: Cryptographic key exchange timeout</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Malware Hooks & Unauthorized Webcam Access</h3>
+      <p>Trojan injection or unverified background API hooks intercepting peripheral hardware controller buses[cite: 2, 4].</p>
+      <ul class="details-list">
+        <li>Unauthorized third-party processes capturing video or audio streams.</li>
+        <li>Privilege bypass vulnerabilities exploited in user-mode applications.</li>
+        <li><div class="code-block">Root Cause: Unsecured API access hook in user space</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <button class="back-btn" onclick="goLoadPage('home')">← Back to Home</button>
+</body>
+</html>

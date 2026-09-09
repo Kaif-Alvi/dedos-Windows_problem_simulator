@@ -26,12 +26,12 @@ Built entirely in Go using [`webview_go`](https://github.com/webview/webview_go)
 
 <table>
   <tr>
-    <td><img src="assets/screenshots/screenshot1.png" alt="Home screen" width="400"/></td>
-    <td><img src="assets/screenshots/screenshot2.png" alt="Problem selection" width="400"/></td>
+    <td><img src="assets/screenshot/home.png" alt="Home screen" width="400"/></td>
+    <td><img src="assets/screenshots/catagory.png" alt="Problem selection" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="assets/screenshots/screenshot3.png" alt="Simulation running" width="400"/></td>
-    <td><img src="assets/screenshots/screenshot4.png" alt="BSOD simulation" width="400"/></td>
+    <td><img src="assets/screenshots/simulations.png" alt="Simulation running" width="400"/></td>
+    <td><img src="assets/screenshots/example.png" alt="BSOD simulation" width="400"/></td>
   </tr>
 </table>
 
@@ -39,7 +39,7 @@ Built entirely in Go using [`webview_go`](https://github.com/webview/webview_go)
 
 ## Features
 
-- 🖥️ **110 simulations** — BSOD, ransomware, driver failures, disk errors, network issues, and more
+- 🖥️ **111 simulations** — BSOD, ransomware, driver failures, disk errors, network issues, and more
 - 🎨 **Custom title bar** — clean minimize / maximize / close controls, no native chrome
 - ⚡ **Instant load** — themed splash screen, no white-screen flash on startup
 - ⌨️ **Global hotkeys** — `Ctrl+Alt+Win+C` to exit any simulation instantly

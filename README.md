@@ -35,7 +35,7 @@ Built entirely in Go using [`webview_go`](https://github.com/webview/webview_go)
   </tr>
   ---
   <tr>
-    <video src="assets/screenshot/video.mp4" controls width="100%"></video>
+    <video src="https://github.com/Kaif-Alvi/dedos-Windows_problem_simulator/assets/screenshot/video.mp4" controls width="100%"></video>
   </tr>
   ---
 </table>

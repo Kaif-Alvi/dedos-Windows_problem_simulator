@@ -33,6 +33,10 @@ Built entirely in Go using [`webview_go`](https://github.com/webview/webview_go)
     <td><img src="assets/screenshot/simulations.png" alt="Simulation running" width="400"/></td>
     <td><img src="assets/screenshot/example.png" alt="BSOD simulation" width="400"/></td>
   </tr>
+  <tr>
+    <video src="assets/screenshot/video.mp4" controls width="100%"></video>
+
+  </tr>
 </table>
 
 ---

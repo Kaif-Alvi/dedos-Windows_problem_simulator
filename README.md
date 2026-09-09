@@ -23,7 +23,6 @@ Built entirely in Go using [`webview_go`](https://github.com/webview/webview_go)
 ---
 
 ## Screenshots
-
 <table>
   <tr>
     <td><img src="assets/screenshot/home.png" alt="Home screen" width="400"/></td>
@@ -33,12 +32,11 @@ Built entirely in Go using [`webview_go`](https://github.com/webview/webview_go)
     <td><img src="assets/screenshot/simulations.png" alt="Simulation running" width="400"/></td>
     <td><img src="assets/screenshot/example.png" alt="BSOD simulation" width="400"/></td>
   </tr>
-  ---
-  <tr>
-    <video src="https://github.com/Kaif-Alvi/dedos-Windows_problem_simulator/assets/screenshot/video.mp4" controls width="100%"></video>
-  </tr>
-  ---
 </table>
+
+<div align="center">
+  <video src="https://raw.githubusercontent.com/Kaif-Alvi/dedos-Windows_problem_simulator/main/assets/screenshot/video.mp4" controls width="600"></video>
+</div>
 
 ---
 

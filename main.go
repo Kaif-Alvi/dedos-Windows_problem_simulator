@@ -69,16 +69,23 @@ const (
 
 // titleBar is prepended to normal (non-prank) pages only.
 // -webkit-app-region:drag makes the bar draggable with no extra Win32 code.
-const titleBar = `<div style="-webkit-app-region:drag;height:34px;width:100%;background:#111318;display:flex;align-items:center;justify-content:flex-end;position:sticky;top:0;z-index:9999;font-family:'Segoe UI',sans-serif;font-weight:700;font-size:14px;color:#eaeaea;user-select:none">
-<span style="-webkit-app-region:drag;flex:1;padding-left:14px;letter-spacing:1px;color:#5ad1ff">DEDOS</span>
-<span onclick="goMinimize()" style="-webkit-app-region:no-drag;cursor:pointer;padding:8px 16px">&#8212;</span>
-<span onclick="goMaximize()" style="-webkit-app-region:no-drag;cursor:pointer;padding:8px 16px">&#9633;</span>
-<span onclick="goExitApp()" style="-webkit-app-region:no-drag;cursor:pointer;padding:8px 16px" onmouseover="this.style.background='#e81123'" onmouseout="this.style.background='transparent'">&#10005;</span>
+const titleBar = `<div style="-webkit-app-region:drag;height:34px;width:100%;background:#111318;display:flex;align-items:center;
+justify-content:flex-end;position:fixed;top:0;left:0;z-index:99999;font-family:'Segoe UI',sans-serif;font-weight:700;font-size:14px;
+color:#eaeaea;user-select:none;border-bottom:1px solid #00aaff"> 
+  <span style="-webkit-app-region:drag;flex:1;padding-left:14px;letter-spacing:1px;color:#5ad1ff">DEDOS</span> 
+  <span onclick="goMinimize()" style="-webkit-app-region:no-drag;cursor:pointer;padding:8px 16px"
+   onmouseover="this.style.background='rgba(90,209,255,0.2)'" onmouseout="this.style.background='transparent'">&#8212;</span>
+  <span onclick="goMaximize()" style="-webkit-app-region:no-drag;cursor:pointer;padding:8px 16px" 
+  onmouseover="this.style.background='rgba(90,209,255,0.2)'" onmouseout="this.style.background='transparent'">&#9633;</span> 
+  <span onclick="goExitApp()" style="-webkit-app-region:no-drag;cursor:pointer;padding:8px 16px" 
+  onmouseover="this.style.background='#e81123'" onmouseout="this.style.background='transparent'">&#10005;</span> 
 </div>`
 
 // splashHTML is shown the instant the window exists, before the real page
 // loads, so the user sees a themed splash instead of a white box.
-const splashHTML = `<body style="margin:0;height:100vh;background:#0d0f14;display:flex;align-items:center;justify-content:center;font-family:'Segoe UI',sans-serif;color:#5ad1ff;font-size:28px;font-weight:700;letter-spacing:2px">DEDOS</body>`
+const splashHTML = `<body style="margin:0;height:100vh;background:#0d0f14;display:flex;
+align-items:center;justify-content:center;font-family:'Segoe UI',sans-serif;color:#5ad1ff;
+font-size:28px;font-weight:700;letter-spacing:2px">DEDOS</body>`
 
 var (
 	w             webview.WebView

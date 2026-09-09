@@ -27,11 +27,11 @@ Built entirely in Go using [`webview_go`](https://github.com/webview/webview_go)
 <table>
   <tr>
     <td><img src="assets/screenshot/home.png" alt="Home screen" width="400"/></td>
-    <td><img src="assets/screenshots/catagory.png" alt="Problem selection" width="400"/></td>
+    <td><img src="assets/screenshot/catagory.png" alt="Problem selection" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="assets/screenshots/simulations.png" alt="Simulation running" width="400"/></td>
-    <td><img src="assets/screenshots/example.png" alt="BSOD simulation" width="400"/></td>
+    <td><img src="assets/screenshot/simulations.png" alt="Simulation running" width="400"/></td>
+    <td><img src="assets/screenshot/example.png" alt="BSOD simulation" width="400"/></td>
   </tr>
 </table>
 
